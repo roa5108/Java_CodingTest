@@ -27,7 +27,7 @@ package PGS.Lv2;
  * ================================================================
  */
 
-class Solution {
+class P_타겟넘버 {
     static int answer = 0;
 
     public static void dfs(int[] numbers, int index, int sum, int target) {
