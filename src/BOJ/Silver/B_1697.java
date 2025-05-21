@@ -9,7 +9,7 @@ import java.util.StringTokenizer;
 
 /* ================================================================
  *
- * Problem  : BOJ - 숨바꼭질
+ * Problem  : BOJ_1697 - 숨바꼭질
  * Author   : 김로아
  * Date     : 2025-05-13
  *
