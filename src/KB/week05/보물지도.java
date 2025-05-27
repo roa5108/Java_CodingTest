@@ -79,3 +79,64 @@ class 보물지도 {
         return false;
     }
 }
+
+
+
+
+
+import java.util.*;
+
+class Solution {
+    public static int[] dc = {0, 0, -1, 1};
+    public static int[] dr = {1, -1, 0, 0};
+    public static int[] shoesDc = {0, 0, -2, 2};
+    public static int[] shoesDr = {2, -2, 0, 0};
+
+    // 행 : m, 열 : n
+    public int solution(int m, int n, int[][] hole) {
+        Queue<int[]> queue = new ArrayDeque<>(); // [r, c, usedShoes, time]
+        boolean[][][] visited = new boolean[m + 1][n + 1][2];
+        queue.add(new int[]{1, 1, 0, 0});
+        visited[1][1][0] = true;
+
+        while (!queue.isEmpty()) {
+            int[] cur = queue.remove();
+            int curR = cur[0];
+            int curC = cur[1];
+            int usedShoes = cur[2];
+            int time = cur[3];
+
+            for (int i = 0; i < 4; i++) {
+                int nextR = curR + dr[i];
+                int nextC = curC + dc[i];
+
+                if (nextR == m && nextC == n) return time + 1;
+
+                if (0 < nextR && nextR <= m && 0 < nextC && nextC <= n && !visited[nextR][nextC][usedShoes]) {
+                    if (!isHole(nextR, nextC, hole)) {
+                        visited[nextR][nextC][usedShoes] = true;
+                        queue.add(new int[]{nextR, nextC, usedShoes, time + 1});
+                    } else if (usedShoes == 0) {
+                        int jumpR = curR + shoesDr[i];
+                        int jumpC = curC + shoesDc[i];
+
+                        if (jumpR == m && jumpC == n) return time + 1;
+
+                        if (0 < jumpR && jumpR <= m && 0 < jumpC && jumpC <= n && !visited[jumpR][jumpC][1] && !isHole(jumpR, jumpC, hole)) {
+                            visited[jumpR][jumpC][1] = true;
+                            queue.add(new int[]{jumpR, jumpC, 1, time + 1});
+                        }
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+
+    public boolean isHole(int r, int c, int[][] hole) {
+        for (int[] h : hole) {
+            if (h[0] == r && h[1] == c) return true;
+        }
+        return false;
+    }
+}
