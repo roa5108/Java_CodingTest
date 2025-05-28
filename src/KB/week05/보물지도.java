@@ -43,7 +43,7 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 
 class 보물지도 {
-    // 기본 이동: 아래, 위, 왼쪽, 오른쪽
+    // 기본 이동: 상, 하, 좌, 우
     public static int[] dc = {0, 0, -1, 1};
     public static int[] dr = {1, -1, 0, 0};
 
