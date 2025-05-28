@@ -34,20 +34,19 @@ class 네트워크 {
 
         for (int i = 0; i < n; i++) {
             if (!visited[i]) {
-                dfs(i, computers, visited);
+                dfs(i, visited, computers);
                 count++;
             }
         }
         return count;
     }
 
-    public void dfs(int node, int[][] computers, boolean[] visited) {
+    public void dfs(int node, boolean[] visited, int[][] computers) {
         visited[node] = true;
         for (int i = 0; i < computers.length; i++) {
-            if (i != node && computers[node][i] == 1 && !visited[i]) {
-                dfs(i, computers, visited);
+            if (computers[node][i] == 1 && !visited[i]) {
+                dfs(i, visited, computers);
             }
         }
-
     }
 }
