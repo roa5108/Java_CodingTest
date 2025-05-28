@@ -97,7 +97,6 @@ class 보물지도 {
 
                         if (0 < jumpR && jumpR <= m && 0 < jumpC && jumpC <= n && !visited[jumpR][jumpC][1] && !isHole[jumpR][jumpC]) {
                             visited[jumpR][jumpC][1] = true;
-                            visited[jumpR][jumpC][1] = true;
                             queue.add(new int[]{jumpR, jumpC, 1, time + 1});
                         }
                     }
