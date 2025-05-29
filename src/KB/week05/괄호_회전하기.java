@@ -21,8 +21,8 @@ package KB.week05;
  *
  * 💻 알고리즘 설계
  * 괄호 회전 -> 문자열 s를 두 배로 늘린 뒤, substring으로 잘라 회전 효과
- * 올바른 괄호인지 검사하는 isValid 함수
- * 올바른 괄호일 경우 result++
+ * 올바른 괄호인지 검사하는 isRight 함수
+ * 올바른 괄호일 경우 count++
  *
  * ⏰ 시간복잡도
  *
@@ -34,38 +34,72 @@ import java.util.Deque;
 
 class 괄호_회전하기 {
     public int solution(String s) {
+        int count = 0;
         String doubleS = s + s;
-        int result = 0;
-
         for (int i = 0; i < s.length(); i++) {
-            String rotated = doubleS.substring(i, i + s.length());
-            char[] arr = rotated.toCharArray();
-            if (isValid(arr)) {
-                result++;
-            }
+            String subS = doubleS.substring(i, i + s.length());
+            char[] arr = subS.toCharArray();
+            if (isRight(arr)) count++;
         }
-        return result;
+        return count;
     }
 
-    public boolean isValid(char[] c) {
+    public boolean isRight(char[] arr) {
         Deque<Character> stack = new ArrayDeque<>();
-        for (int i = 0; i < c.length; i++) {
-            if (c[i] == '(' || c[i] == '[' || c[i] == '{') {
-                stack.push(c[i]);
+
+        for (char c : arr) {
+            if (c == '(' || c == '[' || c == '{') {
+                stack.push(c);
             } else {
-                if (stack.isEmpty()) {
-                    return false;
-                }
-                char top = stack.peek();
-                if ((top == '(' && c[i] == ')')
-                        || (top == '[' && c[i] == ']')
-                        || (top == '{' && c[i] == '}')) {
-                    stack.pop();
-                } else {
-                    return false;
-                }
+                if (stack.isEmpty()) return false;
+                char top = stack.pop();
+                if (c == ')' && top != '(') return false;
+                if (c == ']' && top != '[') return false;
+                if (c == '}' && top != '{') return false;
             }
         }
         return stack.isEmpty();
     }
 }
+
+
+//import java.util.ArrayDeque;
+//import java.util.Deque;
+//
+//class 괄호_회전하기 {
+//    public int solution(String s) {
+//        String doubleS = s + s;
+//        int result = 0;
+//
+//        for (int i = 0; i < s.length(); i++) {
+//            String rotated = doubleS.substring(i, i + s.length());
+//            char[] arr = rotated.toCharArray();
+//            if (isValid(arr)) {
+//                result++;
+//            }
+//        }
+//        return result;
+//    }
+//
+//    public boolean isValid(char[] c) {
+//        Deque<Character> stack = new ArrayDeque<>();
+//        for (int i = 0; i < c.length; i++) {
+//            if (c[i] == '(' || c[i] == '[' || c[i] == '{') {
+//                stack.push(c[i]);
+//            } else {
+//                if (stack.isEmpty()) {
+//                    return false;
+//                }
+//                char top = stack.peek();
+//                if ((top == '(' && c[i] == ')')
+//                        || (top == '[' && c[i] == ']')
+//                        || (top == '{' && c[i] == '}')) {
+//                    stack.pop();
+//                } else {
+//                    return false;
+//                }
+//            }
+//        }
+//        return stack.isEmpty();
+//    }
+//}
