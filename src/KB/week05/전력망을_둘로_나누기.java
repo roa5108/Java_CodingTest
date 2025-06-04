@@ -35,17 +35,24 @@ import java.util.List;
 
 class 전력망을_둘로_나누기 {
     public int solution(int n, int[][] wires) {
+        //answer는 맨위 반복문 밖에 넣어야 리턴 가능
         int answer = Integer.MAX_VALUE;
 
-        // 간선 하나씩 제거해보는 반복문
+        // 간선 개수만큼 트리 생성 (간선 하나씩 없애보면서 각 경우의 트리 생성)
         for (int i = 0; i < wires.length; i++) {
             List<List<Integer>> tree = new ArrayList<>();
+            // 주어진 송전탑 개수 n개만큼 트리에 노드 추가 (1~n개 사용)
             for (int j = 0; j <= n; j++) {
                 tree.add(new ArrayList<>());
             }
 
+            // i번째 간선 하나 지우고 나머지 간선 연결
             for (int j = 0; j < wires.length; j++) {
                 if (i == j) continue; // i번째 그래프에서 j번째 간선 제외함 ex) 1번째 그래프에서 1번 간선 제외
+
+                //이렇게도 가능
+                //tree.get(wires[j][0]).add(wires[j][1]);
+                //tree.get(wires[j][1]).add(wires[j][0]);
                 int a = wires[j][0];
                 int b = wires[j][1];
                 tree.get(a).add(b);
@@ -53,9 +60,7 @@ class 전력망을_둘로_나누기 {
             }
             boolean[] visited = new boolean[n + 1]; // 방문 배열 (0번 노드 제외, 1~n까지)
             int count = dfs(1, tree, visited); // 하나의 연결된 송전탑 개수
-
             int diff = Math.abs(n - 2 * count); //Math.abs((n - count) - count)와 같음;
-
             answer = Math.min(answer, diff); // 최소 차이 갱신
         }
         return answer;
