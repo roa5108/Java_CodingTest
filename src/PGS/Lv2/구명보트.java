@@ -37,7 +37,7 @@ import java.util.Arrays;
  * ================================================================
  */
 
-class P_구명보트 {
+class 구명보트 {
     public int solution(int[] people, int limit) {
         Arrays.sort(people);
 
