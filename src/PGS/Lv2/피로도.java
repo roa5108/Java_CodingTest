@@ -40,9 +40,7 @@ class 피로도 {
         recur(k, dungeons, new ArrayList<>(), ans, visited);
         int maxCnt = 0;
         for (List<Integer> sub : ans) {
-            if (sub.size() > maxCnt) {
-                maxCnt = sub.size();
-            }
+            maxCnt = Math.max(maxCnt, sub.size());
         }
         return maxCnt;
     }
